@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="CSS/frontPage.css">
+
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <!-- Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+</head>
+<body>
+<h1> LA Fire Department Varslingssystem</h1>
+<div class="knap">
+    <button type="submit" id="brandKnap">
+        Tilføj brand
+    </button>
+    <button type="button" id="sirenKnap">
+        Tilføj sirene
+    </button>
+</div>
+
+<div id="map" style="height: 400px; width: 100%; margin-bottom: 20px;"></div>
+
+<div class="tables-container">
+    <div id="table">
+        <h3>Sirener</h3>
+        <table id="SireneTable">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Navn</th>
+                <th>Længdegrad</th>
+                <th>Bredegrad</th>
+                <th>Status</th>
+                <th>Disabled</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody id="SirenTableBody">
+            </tbody>
+        </table>
+    </div>
+
+    <div id="table2">
+        <h3>Brande</h3>
+        <table id="FireTable">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Navn</th>
+                <th>Længdegrad</th>
+                <th>Bredegrad</th>
+                <th>Time</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody id="FireTableBody">
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Popup vindue til skabelse af sirener -->
+
+<div id="createModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="close" onclick="closeCreateModal()">&times;</span>
+            <h2>Opret Ny Sirene</h2>
+        </div>
+        <div class="modal-body">
+            <form id="createSirenForm">
+                <label for="createSirenName">Navn:</label>
+                <input type="text" id="createSirenName" name="name" required>
+
+                <label for="createSirenLatitude">Breddegrad:</label>
+                <input type="number" id="createSirenLatitude" name="latitude" step="0.000001" required>
+
+                <label for="createSirenLongitude">Længdegrad:</label>
+                <input type="number" id="createSirenLongitude" name="longitude" step="0.000001" required>
+
+                <label for="createSirenStatus">Status:</label>
+                <select id="createSirenStatus" name="status" required>
+                    <option value="Fred" selected>Fred</option>
+                    <option value="Fare">Fare</option>
+                </select>
+
+                <label for="createSirenDisabled">Disabled:</label>
+                <input type="checkbox" id="createSirenDisabled" name="disabled">
+                <div class="modal-buttons">
+                    <button type="submit">Opret Sirene</button>
+                    <button type="button" onclick="closeCreateModal()">Annuller</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Popup vindue til opdatering af Sirener-->
+
+<div id="updateModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="close">&times;</span>
+            <h2>Rediger Sirene</h2>
+        </div>
+        <div class="modal-body">
+            <form id="updateSirenForm">
+                <input type="hidden" id="sirenId" name="id">
+
+                <label for="sirenName">Navn:</label>
+                <input type="text" id="sirenName" name="name" required>
+
+                <label for="sirenLatitude">Breddegrad:</label>
+                <input type="number" id="sirenLatitude" name="latitude" step="0.000001" required>
+
+                <label for="sirenLongitude">Længdegrad:</label>
+                <input type="number" id="sirenLongitude" name="longitude" step="0.000001" required>
+
+                <label for="sirenStatus">Status:</label>
+                <select id="sirenStatus" name="status" required>
+                    <option value="Fred">Fred</option>
+                    <option value="Fare">Fare</option>
+                </select>
+
+                <label for="sirenDisabled">Disabled:</label>
+                <input type="checkbox" id="sirenDisabled" name="disabled">
+
+                <div class="modal-buttons">
+                    <button type="submit">Gem ændringer</button>
+                    <button type="button" onclick="closeModal()">Annuller</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="JS/fires.js" type="module"></script>
+</body>
+</html>
